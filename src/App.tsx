@@ -70,8 +70,9 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ChangeColor></ChangeColor>
-        <Movies />
+        <ChangeColor></ChangeColor> 
+        {/* @ts-ignore */}
+          <Movies />
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
