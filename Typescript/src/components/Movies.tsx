@@ -1,7 +1,7 @@
 import MovieProps from "../MovieSinglePost";
 import useMovies from "../hooks/useMovies";
-import React from 'react'
-import { useState} from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -10,10 +10,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components'
 import { Pagination } from "antd";
+import SearchBar from "./search-bar";
 
 const Movies = (props: { posts: MovieProps[] }) => {
 
     const { isLoading, movies, error } = useMovies();
+    const color = localStorage.getItem("themeMode");
+
 
     //pagination hooks
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +26,7 @@ const Movies = (props: { posts: MovieProps[] }) => {
     const firstPostIndex = lastPostIndex - postsPerPage;
     const currentMovies = movies?.slice(firstPostIndex, lastPostIndex);
 
-    const onShowSizeChange = (current:any, pageSize:any) => {
+    const onShowSizeChange = (current: any, pageSize: any) => {
         setPostsPerPage(pageSize);
     }
     
@@ -37,6 +40,7 @@ const Movies = (props: { posts: MovieProps[] }) => {
 
     return (
         <div>
+            <h1>Movie project</h1>
             <Container>
                 {
                     currentMovies?.map((movie) =>
@@ -62,14 +66,14 @@ const Movies = (props: { posts: MovieProps[] }) => {
                 }
             </Container>
             <Pagination
-            onChange={(value:any) => setCurrentPage(value)}
-            pageSize = {postsPerPage}
-            total = {movies?.length}
-            current ={currentPage}
-            showSizeChanger
-            showQuickJumper
-            onShowSizeChange={onShowSizeChange}
-            />
+                onChange={(value: any) => setCurrentPage(value)}
+                pageSize={postsPerPage}
+                total={movies?.length}
+                current={currentPage}
+                showSizeChanger
+                showQuickJumper
+                onShowSizeChange={onShowSizeChange}
+                style={{ color: color === 'dark' ? 'black' : '#fff' }} />
         </div>
     );
 }
